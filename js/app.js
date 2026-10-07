@@ -13,3 +13,14 @@ const entrenamientos = [
 
 console.log(`${NOMBRE_APP}: ${entrenamientos.length} entrenamientos cargados`);
 console.table(entrenamientos);
+
+const TIEMPO_CORTO = 60;
+
+console.log("--- todos los entrenamientos ---");
+for(const entrenamiento of entrenamientos) {
+
+    const etiqueta = entrenamiento.duracion <= TIEMPO_CORTO
+    ? "corto" : "largo";
+    console.log(`${entrenamiento.id}. ${entrenamiento.tipo}. ${etiqueta}`);
+}
+
