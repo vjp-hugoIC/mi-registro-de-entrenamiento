@@ -1,1 +1,2 @@
-r
+La aplicacion registrara todos los entrenamientos que hagas, el entrenamiento que sea, la fecha, la duracion, la distancia, el tipo, las sensaciones y las pulsaciones medias.
+Primero creo una constante con el nombre de la app, ese valor no cambia, luego creo el array de objetos que son las diferentes sesiones (he creado 8 objetos) y por ultimo muestro la informacion del array por consola en forma de tabla
