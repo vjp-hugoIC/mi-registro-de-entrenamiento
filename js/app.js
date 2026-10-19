@@ -29,7 +29,7 @@ function listarEntrenamientos() {
 
 listarEntrenamientos();
 
-
+/*Funcion que muestra los entrenamientos segun sean corton e intensos */
 console.log("--- Cortos e intensos ---");
 function filtrarEntrenamientos(limiteDuracion, limitePulsaciones) {
     let encontrados = 0;
@@ -50,6 +50,7 @@ const resultado = filtrarEntrenamientos(60, 160);
 console.log(`Se han encontrado ${resultado} entrenamientos`);
 
 
+/*Funcion que muestra los entrenamientos por categorias */
 console.log("--- Entrenamientos por categorías ---");
 function contarPorCategoria() {
     let correr = 0;
@@ -93,4 +94,21 @@ function buscarPorTexto(lista, texto) {
     }
 
     return resultado;
+}
+
+
+/*Funcion para añadir elementos a la lista */
+function anadirEntrenamiento(lista, elemento) {
+    let mayorId = 0;
+
+    for (const entrenamiento of lista) {
+        if (entrenamiento.id > mayorId) {
+            mayorId = entrenamiento.id;
+        }
+    }
+
+    elemento.id = mayorId + 1;
+    lista.push(elemento);
+
+    return elemento.id;
 }
