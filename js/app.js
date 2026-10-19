@@ -83,7 +83,7 @@ function listar(lista) {
 }
 
 
-/*Funcion que muestra  un array por el tipo*/
+/*Funcion que muestra un array por el tipo*/
 function buscarPorTexto(lista, texto) {
     let resultado = [];
 
