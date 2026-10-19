@@ -74,11 +74,23 @@ function contarPorCategoria() {
 contarPorCategoria();
 
 
-console.log("--- Un elemento por linea ---")
+/* Funcion que muestra un elemento por linea*/
 function listar(lista) {
     for (const elemento of lista) {
         console.log(elemento);
     }
 }
 
-listar(entrenamientos)
+
+/*Funcion que muestra  un array por el tipo*/
+function buscarPorTexto(lista, texto) {
+    let resultado = [];
+
+    for (const elemento of lista) {
+        if (elemento.tipo.toLowerCase().includes(texto.toLowerCase())) {
+            resultado.push(elemento);
+        }
+    }
+
+    return resultado;
+}
