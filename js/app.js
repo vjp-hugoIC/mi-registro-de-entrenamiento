@@ -125,3 +125,31 @@ function eliminarPorId(lista, id) {
 
     return false;
 }
+
+
+/*Funcion para ver el total de kilometros recorridos en los entrenamientos */
+function mostrarEstadisticas(lista) {
+
+    if (lista.length === 0) {
+        console.log("No hay entrenamientos para calcular estadísticas.");
+        return;
+    }
+
+    let total = 0;
+    let mayor = lista[0];
+
+    for (const entrenamiento of lista) {
+
+        total += entrenamiento.distancia;
+
+        if (entrenamiento.distancia > mayor.distancia) {
+            mayor = entrenamiento;
+        }
+    }
+
+    const media = total / lista.length;
+
+    console.log(`Distancia total: ${total} metros`);
+    console.log(`Distancia media: ${media.toFixed(1)} metros`);
+    console.log(`Entrenamiento más largo: ID ${mayor.id}, ${mayor.distancia} metros`);
+}
