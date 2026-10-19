@@ -112,3 +112,16 @@ function anadirEntrenamiento(lista, elemento) {
 
     return elemento.id;
 }
+
+
+/*Funcion para eliminar un elemento de la lista*/
+function eliminarPorId(lista, id) {
+    for (let i = 0; i < lista.length; i++) {
+        if (lista[i].id === id) {
+            lista.splice(i, 1);
+            return true;
+        }
+    }
+
+    return false;
+}
