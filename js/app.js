@@ -153,3 +153,42 @@ function mostrarEstadisticas(lista) {
     console.log(`Distancia media: ${media.toFixed(1)} metros`);
     console.log(`Entrenamiento más largo: ID ${mayor.id}, ${mayor.distancia} metros`);
 }
+
+
+/*Funcion para crear la tarjeta de un entrenamiento*/
+function crearTarjeta(elemento) {
+    const tarjeta = document.createElement("article");
+    tarjeta.className = "tarjeta";
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = `Entrenamiento: ${elemento.tipo}`;
+
+    const info = document.createElement("p");
+    info.textContent = `Fecha: ${elemento.fecha} | Duración: ${elemento.duracion} min | Distancia: ${elemento.distancia} m | Pulsaciones: ${elemento.pulsaciones} lpm`;
+
+    tarjeta.append(titulo, info);
+
+    return tarjeta;
+}
+
+
+
+/*Funcion para pintar toda la lista en el DOM*/
+function pintar(lista) {
+    const contenedorListado = document.getElementById("listado");
+    contenedorListado.replaceChildren();
+
+    for (const entrenamiento of lista) {
+        const tarjeta = crearTarjeta(entrenamiento);
+        contenedorListado.append(tarjeta);
+    }
+}
+
+
+/*Llamada para pintar la coleccion y actualizar el resumen*/
+pintar(entrenamientos);
+
+const resumen = document.getElementById("resumen");
+if (resumen) {
+    resumen.textContent = `${entrenamientos.length} entrenamientos registrados`;
+}
