@@ -128,18 +128,16 @@ function eliminarPorId(lista, id) {
 
 
 /*Funcion para ver el total de kilometros recorridos en los entrenamientos */
-function mostrarEstadisticas(lista) {
+function estadisticas(lista) {
 
     if (lista.length === 0) {
-        console.log("No hay entrenamientos para calcular estadísticas.");
-        return;
+        return null;
     }
 
     let total = 0;
     let mayor = lista[0];
 
     for (const entrenamiento of lista) {
-
         total += entrenamiento.distancia;
 
         if (entrenamiento.distancia > mayor.distancia) {
@@ -149,9 +147,9 @@ function mostrarEstadisticas(lista) {
 
     const media = total / lista.length;
 
-    console.log(`Distancia total: ${total} metros`);
-    console.log(`Distancia media: ${media.toFixed(1)} metros`);
-    console.log(`Entrenamiento más largo: ID ${mayor.id}, ${mayor.distancia} metros`);
+    return {
+        total: total, media: media, maximo: mayor.distancia
+    };
 }
 
 
@@ -185,6 +183,28 @@ function pintar(lista) {
 }
 
 
+/*Funcion para pintar las estadisticas*/
+function pintarEstadisticas(lista) {
+
+    const contenedorEstadisticas = document.getElementById("estadisticas");
+
+    if (!contenedorEstadisticas) {
+        console.error("No se encontró el elemento con id 'estadisticas' en el HTML");
+        return;
+    }
+    
+    const resultado = estadisticas(lista);
+
+    if (resultado === null) {
+
+        contenedorEstadisticas.textContent = "No hay entrenamientos disponibles";
+        return
+    }
+
+    contenedorEstadisticas.textContent = `Distancia total: ${resultado.total}m | Distancia media: ${resultado.media.toFixed(2)}m Distancia máxima: ${resultado.maximo}m`;
+}
+
+
 /*Llamada para pintar la coleccion y actualizar el resumen*/
 pintar(entrenamientos);
 
@@ -192,3 +212,7 @@ const resumen = document.getElementById("resumen");
 if (resumen) {
     resumen.textContent = `${entrenamientos.length} entrenamientos registrados`;
 }
+
+
+/*Llamo a la funcion de pintar las estadisticas*/
+pintarEstadisticas(entrenamientos);
