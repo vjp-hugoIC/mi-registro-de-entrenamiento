@@ -205,14 +205,60 @@ function pintarEstadisticas(lista) {
 }
 
 
-/*Llamada para pintar la coleccion y actualizar el resumen*/
-pintar(entrenamientos);
-
-const resumen = document.getElementById("resumen");
-if (resumen) {
-    resumen.textContent = `${entrenamientos.length} entrenamientos registrados`;
-}
-
-
 /*Llamo a la funcion de pintar las estadisticas*/
 pintarEstadisticas(entrenamientos);
+
+
+/*Variables de estado */
+let textoBuscado = "";
+let criterio = "ninguno";
+
+/*Funcion para ordenar una copia de la lista segun el criterio */
+function ordenar(lista, criterio) {
+    const copia = [...lista]
+
+    if (criterio === "tipo") {
+        copia.sort((a, b) => a.tipo.localeCompare(b.tipo));
+    } else if (criterio === "distancia") {
+        copia.sort((a, b) => a.distancia - b.distancia);
+    }
+
+    return copia;
+}
+
+/*Funcion que filtra. ordena y pinta */
+function actualizar() {
+    //Filtro por texto usando la funcion buscarPorTexto
+    let resultado = buscarPorTexto(entrenamientos, textoBuscado);
+
+    //Ordenamos el resultado segun el criterio actual
+    resultado = ordenar(resultado, criterio);
+
+    //Pintamos el resultado
+    pintar(resultado);
+}
+
+/*Llamo a la funcion actualizar */
+actualizar(entrenamientos);
+
+
+/*Evento input del buscador */
+const inputBuscador = document.getElementById("buscador");
+inputBuscador.addEventListener("input", (e) =>{
+    textoBuscado = e.target.value;
+    actualizar();
+})
+
+
+/*Evento click de los botones  */
+const btnOrdenTipo = document.getElementById("ordenNombre");
+btnOrdenTipo.addEventListener("click", () => {
+    criterio = "tipo";
+    actualizar();
+})
+
+const btnOrdenDistancia = document.getElementById("ordenNumero");
+btnOrdenDistancia.addEventListener ("click", () => {
+    criterio = "distancia";
+    actualizar();
+})
