@@ -241,8 +241,7 @@ function actualizar() {
     pintarResumen(resultado.length)
 }
 
-/*Llamo a la funcion actualizar */
-actualizar(entrenamientos);
+
 
 
 /*Evento input del buscador */
@@ -278,3 +277,40 @@ function pintarResumen(mostrados) {
         resumen.textContent = `No hay entrenamientos que contengan <<${textoBuscado}>>`
     }
 }
+
+
+/*Funcion para guardar una coockie*/
+function guardarCookie(nombre, valor, dias) {
+    const segundos = dias * 24 *60 * 60;
+    const texto = encodeURIComponent(valor);
+    document.cookie = `${nombre}=${texto}; max-age=${segundos} path=/`;
+}
+
+
+/*Funcion para leer cookie*/
+function leerCookie(nombre) {
+    const partes = document.cookie.split("; ");
+
+    for (const parte of partes) {
+        const [clave, valor] = parte.split("=");
+        if (clave === nombre) {
+            return decodeURIComponent(valor);
+        }
+    }
+
+    return null;
+}
+
+
+function elegirOrden(nuevo) {
+    criterio = nuevo;
+    guardarCookie("orden", criterio, 30);
+    actualizar();
+}
+
+document.querySelector("#ordenNombre").addEventListener("click", () => elegirOrden("nombre"));
+document.querySelector("#ordenTiempo").addEventListener("click", () => elegirOrden("tiempo"));
+
+
+criterio = leerCookie("orden") ?? "ninguno";
+actualizar();
