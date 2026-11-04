@@ -228,7 +228,7 @@ function ordenar(lista, criterio) {
 
 /*Funcion que filtra. ordena y pinta */
 function actualizar() {
-    //Filtro por texto usando la funcion buscarPorTexto
+    //Filtramos por texto usando la funcion buscarPorTexto
     let resultado = buscarPorTexto(entrenamientos, textoBuscado);
 
     //Ordenamos el resultado segun el criterio actual
@@ -236,6 +236,9 @@ function actualizar() {
 
     //Pintamos el resultado
     pintar(resultado);
+
+    //Actualizamos el resumen con el numero de elementos mostrados
+    pintarResumen(resultado.length)
 }
 
 /*Llamo a la funcion actualizar */
@@ -262,3 +265,16 @@ btnOrdenDistancia.addEventListener ("click", () => {
     criterio = "distancia";
     actualizar();
 })
+
+
+/*Funcion para pintar el resumen dinamico */
+function pintarResumen(mostrados) {
+    const resumen = document.getElementById("resumen");
+    if (!resumen) return;
+
+    if (mostrados > 0) {
+        resumen.textContent = `Mostrando ${mostrados} de ${entrenamientos.length} entrenamientos`;
+    } else {
+        resumen.textContent = `No hay entrenamientos que contengan <<${textoBuscado}>>`
+    }
+}
