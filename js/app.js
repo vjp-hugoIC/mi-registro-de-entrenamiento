@@ -1,14 +1,14 @@
 const NOMBRE_APP = "Registro de entrenamiento";
 
 const entrenamientos = [
-    { id: 1, fecha: "1/6/026", tipo: "correr", duracion: 30, distancia: 4000, sensaciones: "Buenas", pulsaciones: 160 },
-    { id: 2, fecha: "2/6/2026", tipo: "correr", duracion: 100, distancia: 3500, sensaciones: "Buenas", pulsaciones: 163 },
-    { id: 3, fecha: "3/6/2026", tipo: "pesas", duracion: 120, distancia: 0, sensaciones: "Buenas", pulsaciones: 155 },
-    { id: 4, fecha: "4/6/2026", tipo: "correr", duracion: 30, distancia: 4000, sensaciones: "Buenas", pulsaciones: 158 },
-    { id: 5, fecha: "5/6/2026", tipo: "correr", duracion: 40, distancia: 4500, sensaciones: "Buenas", pulsaciones: 160 },
-    { id: 6, fecha: "6/6/2026", tipo: "pesas", duracion: 120, distancia: 0, sensaciones: "Buenas", pulsaciones: 145 },
-    { id: 7, fecha: "7/6/2026", tipo: "correr", duracion: 60, distancia: 5000, sensaciones: "Buenas", pulsaciones: 170 },
-    { id: 8, fecha: "8/6/2026", tipo: "correr", duracion: 30, distancia: 4000, sensaciones: "Buenas", pulsaciones: 169 }
+    { id: 1, fecha: "2026-01-10", tipo: "correr", duracion: 30, distancia: 4000, sensaciones: "Buenas", pulsaciones: 160 },
+    { id: 2, fecha: "2026-11-20", tipo: "correr", duracion: 100, distancia: 3500, sensaciones: "Buenas", pulsaciones: 163 },
+    { id: 3, fecha: "2026-05-18", tipo: "pesas", duracion: 120, distancia: 0, sensaciones: "Buenas", pulsaciones: 155 },
+    { id: 4, fecha: "2026-04-06", tipo: "correr", duracion: 30, distancia: 4000, sensaciones: "Buenas", pulsaciones: 158 },
+    { id: 5, fecha: "2026-06-05", tipo: "correr", duracion: 40, distancia: 4500, sensaciones: "Buenas", pulsaciones: 160 },
+    { id: 6, fecha: "2026-06-18", tipo: "pesas", duracion: 120, distancia: 0, sensaciones: "Buenas", pulsaciones: 145 },
+    { id: 7, fecha: "2026-06-07", tipo: "correr", duracion: 60, distancia: 5000, sensaciones: "Buenas", pulsaciones: 170 },
+    { id: 8, fecha: "2026-06-22", tipo: "correr", duracion: 30, distancia: 4000, sensaciones: "Buenas", pulsaciones: 169 }
 ];
 
 console.log(`${NOMBRE_APP}: ${entrenamientos.length} entrenamientos cargados`);
@@ -16,6 +16,7 @@ console.table(entrenamientos);
 
 const TIEMPO_CORTO = 60;
 const INTENSO = 160;
+const DIAS_RECIENTES = 30;
 
 console.log("--- Todos los entrenamientos ---");
 function listarEntrenamientos() {
@@ -164,7 +165,15 @@ function crearTarjeta(elemento) {
     const info = document.createElement("p");
     info.textContent = `Fecha: ${elemento.fecha} | Duración: ${elemento.duracion} min | Distancia: ${elemento.distancia} m | Pulsaciones: ${elemento.pulsaciones} lpm`;
 
-    tarjeta.append(titulo, info);
+    const fecha = document.createElement("p");
+    fecha.classList.add("fecha");
+    fecha.textContent = fechaLegible(elemento.fecha);
+
+    if (diasDesde(elemento.fecha) <= DIAS_RECIENTES) {
+        tarjeta.classList.add("reciente");
+    }
+
+    tarjeta.append(titulo, info, fecha);
 
     return tarjeta;
 }
@@ -221,6 +230,8 @@ function ordenar(lista, criterio) {
         copia.sort((a, b) => a.tipo.localeCompare(b.tipo));
     } else if (criterio === "distancia") {
         copia.sort((a, b) => a.distancia - b.distancia);
+    } else if (criterio === "fecha") {
+        copia.sort((a, b) => crearFecha(a.fecha) - crearFecha(b.fecha));
     }
 
     return copia;
@@ -251,19 +262,12 @@ inputBuscador.addEventListener("input", (e) =>{
     actualizar();
 })
 
+document.querySelector("#ordenNombre").addEventListener("click", () => elegirOrden("tipo"));
+document.querySelector("#ordenTiempo").addEventListener("click", () => elegirOrden("distancia"));
+document.querySelector("#ordenFecha").addEventListener("click", () => elegirOrden("fecha"));
 
-/*Evento click de los botones  */
-const btnOrdenTipo = document.getElementById("ordenNombre");
-btnOrdenTipo.addEventListener("click", () => {
-    criterio = "tipo";
-    actualizar();
-})
 
-const btnOrdenDistancia = document.getElementById("ordenNumero");
-btnOrdenDistancia.addEventListener ("click", () => {
-    criterio = "distancia";
-    actualizar();
-})
+
 
 
 /*Funcion para pintar el resumen dinamico */
@@ -308,8 +312,25 @@ function elegirOrden(nuevo) {
     actualizar();
 }
 
-document.querySelector("#ordenNombre").addEventListener("click", () => elegirOrden("nombre"));
-document.querySelector("#ordenTiempo").addEventListener("click", () => elegirOrden("tiempo"));
+
+/*funcion para crear fecha */
+function crearFecha(texto) {
+    return new Date(texto + "T00:00");
+}
+
+/*Funcion para hacer la hora legible */
+function fechaLegible(texto) {
+    return crearFecha(texto).toLocaleDateString("es-ES",
+        { day: "numeric", month: "long", year: "numeric" });
+}
+
+
+/*Funcion para calcular los dias desde... */
+function diasDesde(texto) {
+    const MS_DIAS = 24 * 60 * 60 * 1000;
+    const ms = Date.now() - crearFecha(texto).getTime();
+    return Math.floor(ms / MS_DIAS);
+}
 
 
 criterio = leerCookie("orden") ?? "ninguno";
