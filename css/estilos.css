@@ -26,3 +26,10 @@ body {
     color: #6b7785;
     font-size: .9rem;
 }
+
+.error {
+    color: red;
+    display: block;
+    margin: 5px 0;
+    font-size: 0.9rem;
+}

@@ -15,3 +15,9 @@ DATOS DE CADA ELEMENTO
 
 ¿QUÉ SE HA HECHO EN EL SPRINT 0?
 He creado la estructura del proyecto y el repositorio, he creado los entrenamientos, luego una funcion para listar todos los elementos, una funcion que filtra por condicion compuesta que devuelva cuantos ha encontrado con ese filtro, un switch que cuente los entrenamientos por categorías, una funcion que busca un tipo de entrenamiento y los muestra añadiendolos a un array, una funcion para añadir entrenamientos sumando 1 al ultimo id que hubiese, otra para eliminarlos y que si lo elimina devuelva true sino false y una funcion que devuelva estadisticas de los entrenamientos del total de metros recorridos, la media de metro con 1 decimal, el entrenamiento con el mayor numero de metros y si le pasamos una lista vacía devuelva un aviso.
+
+
+¿QUÉ SE HA HECHO EN EL SPRINT 1?
+En esta sesión he creado el index.html con un header, con un titulo y un resumen, los controles, estadisticas y un contenedor para el listado y script con defer. El estilos.css enlazado en el head, he creado una funcion pintar(lista) que vacia el contenedor y crea una tarjeta por elemento con createElement,textContent y append. Las estadisticas se calculan con una funcion que devuelve un objeto y se escriben en la pagina.
+Se ha añadido un buscador que filtra mientras escribes sin distinguir mayusculas, botones para ordenar que ordena una copia y la original no cambia y un resumen de cuantos se estan mostrando a la vez que avisa si no encuentra nada.
+Una cookie que guarda el ultimo orden elegido, las fechas se guardan con formato "AAA-MM-DD" y se muestran con formato legible, tambien se puede ordenar por fecha y lo añadido el ultimo mes destacado, por ultimo un mini formulario con expresion regular.

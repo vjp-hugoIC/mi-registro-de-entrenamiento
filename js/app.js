@@ -149,7 +149,9 @@ function estadisticas(lista) {
     const media = total / lista.length;
 
     return {
-        total: total, media: media, maximo: mayor.distancia
+        total: total, 
+        media: media, 
+        maximo: mayor.distancia
     };
 }
 
@@ -337,6 +339,8 @@ function diasDesde(texto) {
 function formulario() {
     const añadir = document.getElementById("añadir");
 
+    const PATRON = /^\d{4}-\d{2}-\d{2}$/;
+
     //Evita que la pagina se recargue al enviar los datos por si habia algun filtro aplicado
     añadir.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -346,6 +350,20 @@ function formulario() {
         const duracion = Number(document.getElementById("duracion").value);
         const distancia = Number(document.getElementById("distancia").value);
         const pulsaciones = Number(document.getElementById("pulsaciones").value);
+        const errorFecha = document.getElementById("errorFecha");
+
+        //Comprobamos que la fecha esta bien puesta
+        if (!PATRON.test(fecha)) {
+            if (errorFecha) {
+                errorFecha.textContent = "Error: la fecha debe tener formato AAA-MM-DD"
+            }
+            return;
+        }
+
+        //Si esta bien se limpia el mensaje
+        if (errorFecha) {
+            errorFecha.textContent = " ";
+        }
 
         //Creamos el objeto nuevo
         const nuevoEntrenamiento = {
