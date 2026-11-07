@@ -99,7 +99,7 @@ function buscarPorTexto(lista, texto) {
 
 
 /*Funcion para añadir elementos a la lista */
-function anadirEntrenamiento(lista, elemento) {
+function añadirEntrenamiento(lista, elemento) {
     let mayorId = 0;
 
     for (const entrenamiento of lista) {
@@ -331,6 +331,41 @@ function diasDesde(texto) {
     const ms = Date.now() - crearFecha(texto).getTime();
     return Math.floor(ms / MS_DIAS);
 }
+
+
+/*Funcion para gestionar el formulario y guardar los datos */
+function formulario() {
+    const añadir = document.getElementById("añadir");
+
+    //Evita que la pagina se recargue al enviar los datos por si habia algun filtro aplicado
+    añadir.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const tipo = document.getElementById("tipo").value.trim();
+        const fecha = document.getElementById("fecha").value.trim();
+        const duracion = Number(document.getElementById("duracion").value);
+        const distancia = Number(document.getElementById("distancia").value);
+        const pulsaciones = Number(document.getElementById("pulsaciones").value);
+
+        //Creamos el objeto nuevo
+        const nuevoEntrenamiento = {
+            tipo: tipo,
+            fecha: fecha,
+            duracion: duracion,
+            distancia: distancia,
+            sensaciones: "Buenas",
+            pulsaciones: pulsaciones
+        };
+
+        //Llamamos a la funcion añadirEntrenamientos para asignarile id
+        añadirEntrenamiento(entrenamientos, nuevoEntrenamiento);
+
+        //limpiamos el formulario
+        añadir.reset(); 
+    });
+}
+
+formulario();
 
 
 criterio = leerCookie("orden") ?? "ninguno";
