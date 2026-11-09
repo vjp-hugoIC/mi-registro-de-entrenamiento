@@ -99,7 +99,7 @@ function buscarPorTexto(lista, texto) {
 
 
 /*Funcion para añadir elementos a la lista */
-function añadirEntrenamiento(lista, elemento) {
+function anadirEntrenamiento(lista, elemento) {
     let mayorId = 0;
 
     for (const entrenamiento of lista) {
@@ -149,9 +149,7 @@ function estadisticas(lista) {
     const media = total / lista.length;
 
     return {
-        total: total, 
-        media: media, 
-        maximo: mayor.distancia
+        total: total, media: media, maximo: mayor.distancia
     };
 }
 
@@ -333,57 +331,6 @@ function diasDesde(texto) {
     const ms = Date.now() - crearFecha(texto).getTime();
     return Math.floor(ms / MS_DIAS);
 }
-
-
-/*Funcion para gestionar el formulario y guardar los datos */
-function formulario() {
-    const añadir = document.getElementById("añadir");
-
-    const PATRON = /^\d{4}-\d{2}-\d{2}$/;
-
-    //Evita que la pagina se recargue al enviar los datos por si habia algun filtro aplicado
-    añadir.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const tipo = document.getElementById("tipo").value.trim();
-        const fecha = document.getElementById("fecha").value.trim();
-        const duracion = Number(document.getElementById("duracion").value);
-        const distancia = Number(document.getElementById("distancia").value);
-        const pulsaciones = Number(document.getElementById("pulsaciones").value);
-        const errorFecha = document.getElementById("errorFecha");
-
-        //Comprobamos que la fecha esta bien puesta
-        if (!PATRON.test(fecha)) {
-            if (errorFecha) {
-                errorFecha.textContent = "Error: la fecha debe tener formato AAA-MM-DD"
-            }
-            return;
-        }
-
-        //Si esta bien se limpia el mensaje
-        if (errorFecha) {
-            errorFecha.textContent = " ";
-        }
-
-        //Creamos el objeto nuevo
-        const nuevoEntrenamiento = {
-            tipo: tipo,
-            fecha: fecha,
-            duracion: duracion,
-            distancia: distancia,
-            sensaciones: "Buenas",
-            pulsaciones: pulsaciones
-        };
-
-        //Llamamos a la funcion añadirEntrenamientos para asignarile id
-        añadirEntrenamiento(entrenamientos, nuevoEntrenamiento);
-
-        //limpiamos el formulario
-        añadir.reset(); 
-    });
-}
-
-formulario();
 
 
 criterio = leerCookie("orden") ?? "ninguno";
