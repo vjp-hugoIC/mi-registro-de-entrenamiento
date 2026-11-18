@@ -1,3 +1,12 @@
+import { datosEntrenamientos } from "./datos";
+import { Entrenamientos } from "./entrenamientos";
+
+const entrenamientos = [];
+
+for (const datos of datosEntrenamientos) {
+    entrenamientos.push(new Entrenamiento(datos));
+}
+
 /*Funcion para crear la tarjeta de un entrenamiento*/
 export function crearTarjeta(elemento) {
     const tarjeta = document.createElement("article");
@@ -7,7 +16,10 @@ export function crearTarjeta(elemento) {
     titulo.textContent = `Entrenamiento: ${elemento.tipo}`;
 
     const info = document.createElement("p");
-    info.textContent = `Fecha: ${elemento.fecha} | Duración: ${elemento.duracion} min | Distancia: ${elemento.distancia} m | Pulsaciones: ${elemento.pulsaciones} lpm`;
+    info.textContent = elemento.descripcion();
+
+    const velocidad = document.createElement("p");
+    velocidad.textContent = `velocidad media: ${elemento.velocidadMedia().toFixed(1)} k/h`;
 
     const fecha = document.createElement("p");
     fecha.classList.add("fecha");
@@ -17,7 +29,7 @@ export function crearTarjeta(elemento) {
         tarjeta.classList.add("reciente");
     }
 
-    tarjeta.append(titulo, info, fecha);
+    tarjeta.append(titulo, info, fecha, velocidad);
 
     return tarjeta;
 }

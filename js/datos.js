@@ -1,6 +1,6 @@
 export const NOMBRE_APP = "Registro de entrenamiento";
 
-export const entrenamientos = [
+export const datosEntrenamientos = [
     { id: 1, fecha: "2026-01-10", tipo: "correr", duracion: 30, distancia: 4000, sensaciones: "Buenas", pulsaciones: 160 },
     { id: 2, fecha: "2026-11-20", tipo: "correr", duracion: 100, distancia: 3500, sensaciones: "Buenas", pulsaciones: 163 },
     { id: 3, fecha: "2026-05-18", tipo: "pesas", duracion: 120, distancia: 0, sensaciones: "Buenas", pulsaciones: 155 },
