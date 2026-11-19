@@ -1,22 +1,43 @@
-/*Funcion que muestra un array por el tipo*/
-export function buscarPorTexto(lista, texto) {
-    let resultado = [];
+import { TIEMPO_CORTO } from "./datos.js";
 
-    for (const elemento of lista) {
-        if (elemento.tipo.toLowerCase().includes(texto.toLowerCase())) {
-            resultado.push(elemento);
+export function listarEntrenamientos(lista) {
+    for (const entrenamiento of lista) {
+        const etiqueta = entrenamiento.duracion <= TIEMPO_CORTO
+            ? "corto" : "largo";
+
+        console.log(`${entrenamiento.id}. ${entrenamiento.tipo}. ${etiqueta}`);
+    }
+}
+
+/*Funcion que muestra los entrenamientos segun sean corton e intensos */
+export function filtrarEntrenamientos(lista, limiteDuracion, limitePulsaciones) {
+    let encontrados = 0;
+
+    for (const entrenamiento of lista) {
+        if (entrenamiento.duracion <= limiteDuracion &&
+            entrenamiento.pulsaciones >= limitePulsaciones) {
+
+            console.log(`${entrenamiento.id}. ${entrenamiento.duracion} minutos, ${entrenamiento.pulsaciones} pulsaciones`);
+            encontrados++;
         }
     }
 
-    return resultado;
+    return encontrados;
+}
+
+/* Funcion que muestra un elemento por linea*/
+export function listar(lista) {
+    for (const elemento of lista) {
+        console.log(elemento);
+    }
 }
 
 /*Funcion que muestra los entrenamientos por categorias */
-export function contarPorCategoria() {
+export function contarPorCategoria(lista) {
     let correr = 0;
     let pesas = 0;
 
-    for (const entrenamiento of entrenamientos) {
+    for (const entrenamiento of lista) {
         switch (entrenamiento.tipo) {
             case "correr":
                 correr++;
@@ -30,13 +51,6 @@ export function contarPorCategoria() {
 
     console.log(`Entrenamientos de correr: ${correr}`);
     console.log(`Entrenamientos de pesas: ${pesas}`);
-}
-
-/* Funcion que muestra un elemento por linea*/
-export function listar(lista) {
-    for (const elemento of lista) {
-        console.log(elemento);
-    }
 }
 
 /*Funcion que muestra un array por el tipo*/
@@ -114,16 +128,10 @@ export function ordenar(lista, criterio) {
     } else if (criterio === "distancia") {
         copia.sort((a, b) => a.distancia - b.distancia);
     } else if (criterio === "fecha") {
-        copia.sort((a, b) => crearFecha(a.fecha) - crearFecha(b.fecha));
+        copia.sort((a, b) => crearFecha(b.fecha) - crearFecha(a.fecha));
     }
 
     return copia;
-}
-
-export function elegirOrden(nuevo) {
-    criterio = nuevo;
-    guardarCookie("orden", criterio, 30);
-    actualizar();
 }
 
 /*funcion para crear fecha */

@@ -19,12 +19,13 @@
 
   <form id="añadir">
     <h3>Añadir nuevo entrenamiento</h3>
+    <input id="codigo" placeholder="Código (ejemplo: 1)" required>
     <input id="tipo" placeholder="Tipo entrenamiento" required>
-    <input id="fecha" placeholder="Fecha (AAAA-MM-DD)" required>
-    <input id="duracion" type="number" placeholder="Duración (min)" required>
-    <input id="distancia" type="number" placeholder="Distancia (m)" required>
-    <input id="pulsaciones" type="number" placeholder="Pulsaciones" required>
-    <span id="errorFecha"></span>
+    <input id="fecha" type="date" required>
+    <input id="duracion" type="number" placeholder="Duración (min)" min="1" required>
+    <input id="distancia" type="number" placeholder="Distancia (m)" min="0" required>
+    <input id="pulsaciones" type="number" placeholder="Pulsaciones" min="1" required>
+    <span id="errorCodigo"></span>
     <button type="submit">Añadir</button>
   </form>
 
@@ -32,7 +33,7 @@
   <main id="listado">
     
   </main>
-  <script src="js/app.js" defer></script>
+  <script type="module" src="js/interfaz.js"></script>
 </body>
 
 </html>

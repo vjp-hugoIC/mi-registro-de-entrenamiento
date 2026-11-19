@@ -1,4 +1,4 @@
-export class Entrenamientos {
+export class Entrenamiento {
 
     constructor(datos) {
         this.id = datos.id;
@@ -38,7 +38,7 @@ export class Entrenamientos {
     }
 
     descripcion() {
-        return `Fecha: ${this.fecha} | Duración: ${this.duracion} min | Distancia: ${this.distancia} m | Pulsaciones: ${this.pulsaciones} lpm`;
+        return `Fecha: ${this.fecha} | Duración: ${this.duracionTexto} min | Distancia: ${this.distancia} m | Pulsaciones: ${this.pulsaciones} lpm`;
     }
 
     velocidadMedia() {

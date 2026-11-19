@@ -10,3 +10,8 @@ export const datosEntrenamientos = [
     { id: 7, fecha: "2026-06-07", tipo: "correr", duracion: 60, distancia: 5000, sensaciones: "Buenas", pulsaciones: 170 },
     { id: 8, fecha: "2026-06-22", tipo: "correr", duracion: 30, distancia: 4000, sensaciones: "Buenas", pulsaciones: 169 }
 ];
+
+
+export const TIEMPO_CORTO = 60;
+export const INTENSO = 160;
+export const DIAS_RECIENTES = 30;
