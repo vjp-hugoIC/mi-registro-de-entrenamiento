@@ -1,6 +1,6 @@
 import { Entrenamiento } from "./entrenamiento.js";
 import { NOMBRE_APP, datosEntrenamientos, DIAS_RECIENTES } from "./datos.js";
-import { listarEntrenamientos, filtrarEntrenamientos, contarPorCategoria, buscarPorTexto, estadisticas, ordenar, fechaLegible, diasDesde, anadirEntrenamiento } from "./logica.js";
+import { listarEntrenamientos, filtrarEntrenamientos, contarPorCategoria, estadisticas, ordenar, fechaLegible, diasDesde, } from "./logica.js";
 
 /*Variables de estado */
 let textoBuscado = "";
