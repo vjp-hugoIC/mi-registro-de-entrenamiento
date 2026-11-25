@@ -1,5 +1,5 @@
-import { datosEntrenamientos } from "./datos";
-import { buscarPorTexto, anadirEntrenamiento } from "./logica";
+
+import { Entrenamiento } from "./entrenamiento.js";
 
 export class GestorEntrenamientos {
   constructor(entrenamientos) {
@@ -32,10 +32,10 @@ export class GestorEntrenamientos {
       }
     }
 
-    elemento.id = mayorId + 1;
-    this._entrenamientos.push(elemento);
+    entrenamiento.id = mayorId + 1;
+    this._entrenamientos.push(entrenamiento);
 
-    return elemento.id;
+    return entrenamiento.id;
   }
 
   //Elimina un entrenamiento por su ID
@@ -62,4 +62,16 @@ export class GestorEntrenamientos {
 
     return resultado;
   }
+
+  static desdeDatos(datos) {
+    let entrenamientos = [];
+
+    for (const elemento of datos) {
+      let entrenamiento = new Entrenamiento(elemento);
+      entrenamientos.push(entrenamiento);
+    }
+
+    return new GestorEntrenamientos(entrenamientos);
+  }
+
 }

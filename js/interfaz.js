@@ -1,20 +1,18 @@
 import { Entrenamiento } from "./entrenamiento.js";
 import { NOMBRE_APP, datosEntrenamientos, DIAS_RECIENTES } from "./datos.js";
 import { listarEntrenamientos, filtrarEntrenamientos, contarPorCategoria, estadisticas, ordenar, fechaLegible, diasDesde, } from "./logica.js";
+import { GestorEntrenamientos } from "./gestorEntre.js";
 
 /*Variables de estado */
 let textoBuscado = "";
 let criterio = "ninguno";
 
 
-const entrenamientos = [];
+//Creacion del array
+const gestor = GestorEntrenamientos.desdeDatos(datosEntrenamientos);
 
-for (const datos of datosEntrenamientos) {
-    entrenamientos.push(new Entrenamiento(datos));
-}
-
-console.log(`${NOMBRE_APP}: ${entrenamientos.length} entrenamientos cargados`);
-console.table(entrenamientos);
+console.log(`${NOMBRE_APP}: ${gestor.total} entrenamientos cargados`);
+console.table(gestor.listar());
 
 /*Funcion para crear la tarjeta de un entrenamiento*/
 function crearTarjeta(elemento) {
@@ -81,7 +79,7 @@ function pintarResumen(mostrados) {
     if (!resumen) return;
 
     if (mostrados > 0) {
-        resumen.textContent = `Mostrando ${mostrados} de ${entrenamientos.length} entrenamientos`;
+        resumen.textContent = `Mostrando ${mostrados} de ${gestor.total} entrenamientos`;
     } else {
         resumen.textContent = `No hay entrenamientos que contengan <<${textoBuscado}>>`
     }
@@ -90,7 +88,7 @@ function pintarResumen(mostrados) {
 /*Funcion que filtra. ordena y pinta */
 function actualizar() {
     //Filtramos por texto usando la funcion buscarPorTexto
-    let resultado = buscarPorTexto(entrenamientos, textoBuscado);
+    let resultado = gestor.buscar(textoBuscado);
 
     //Ordenamos el resultado segun el criterio actual
     resultado = ordenar(resultado, criterio);
@@ -173,8 +171,8 @@ function configurarFormulario() {
             pulsaciones: Number(document.querySelector("#pulsaciones").value) || 0
         });
 
-        anadirEntrenamiento(entrenamientos, nuevo);
-        pintarEstadisticas(entrenamientos);
+        gestor.añadir(nuevo);
+        pintarEstadisticas(gestor.listar());
         actualizar();
         formAñadir.reset();
     });
@@ -182,16 +180,16 @@ function configurarFormulario() {
 
 /*Llamo a las funciones */
 console.log("Todos los entrenamientos");
-listarEntrenamientos(entrenamientos);
+listarEntrenamientos(gestor.listar());
 
 console.log("Cortos e intensos");
-const resultado = filtrarEntrenamientos(entrenamientos, 60, 160);
+const resultado = filtrarEntrenamientos(gestor.listar(), 60, 160);
 console.log(`Se han encontrado ${resultado} entrenamientos`);
 
 console.log("Entrenamientos por categorías");
-contarPorCategoria(entrenamientos);
+contarPorCategoria(gestor.listar());
 
 criterio = leerCookie("orden") ?? "ninguno";
 configurarFormulario();
-pintarEstadisticas(entrenamientos);
+pintarEstadisticas(gestor.listar());
 actualizar();
